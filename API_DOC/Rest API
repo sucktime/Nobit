@@ -1,0 +1,64 @@
+-------------------------------------------------------------------------------
+>请求数据云账户列表：
+	url:     https://nobit.com/data-account/get-list
+	method:  POST
+	params:  user_id(string)
+			 timestamp(string)
+			 signature(hex string): SM3(user_id || timestamp || user_key32)
+			 
+>添加数据云账户：
+	url:     https://nobit.com/data-account/add-one
+	method:  POST
+	params:  user_id(string)
+			 timestamp(string)
+			 domain(string)
+			 account_id(string)
+			 account_key(hex string)
+			 signature(hex string): SM(.....||user_key32)
+			 
+删除数据云账户：
+	url:     https://nobit.com/data-account/delete-one
+	method:  POST
+	params:  user_id(string)
+			 timestamp(string)
+			 id(long)
+			 signature(hex string): SM( .....|| user_key32)
+------------------------------------------------------------------------------		 
+修改密钥云账户密钥：
+	url：         https://nobit.com/account/change-key
+	params:   user_id(string)
+			  timestamp(string)
+			  account(string)
+			  new_key(hex string)
+			  signature(hex string): SM3(.....|| user_key32)
+-------------------------------------------------------------------------------
+>请求密钥：
+	url:     https://nobit.com/data-key/get-one
+	method:  POST
+	params:  user_id(string)
+			 timestamp(string)
+			 key_id(string)
+			 signature(hex string): SM( user_id || timestamp || key_id || user_key32)
+
+>添加密钥：
+	url：        https://nobit.com/data-key/add-one
+	method:  POST
+	params:  user_id(string)
+	 		 timestamp(string)
+	 		 hex_key(hex string)
+	 		 signature(hex string): SM(.....||user_key32)
+--------------------------------------------------------------------------------
+>添加密钥云账户：
+	url：        https://nobit.com/user/add-one
+	method:  POST
+	params:  user_id(string)
+			 user_key(hex_string)
+	 		 timestamp(string)
+	 		 signature(hex string): SM(.....||server_key32)
+---------------------------------------------------------------------------------
+说明1：
+timestamp暂时均设为"FF"
+user_key 为32-byte密钥，由用户口令导出：KDF(salt=null,pwd,cnt==1)
+signature为签名结果的32-byte SM3哈希值的十六进制表示（A-F均大写)
+说明2：
+云密钥云账户暂时不支持添加，系统预设了账户test：test
