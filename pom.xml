@@ -53,6 +53,13 @@
     	<artifactId>mysql-connector-java</artifactId>
     	<version>5.1.37</version>
     </dependency>
-
+    
+    <dependency>
+        <groupId>nerbit.JCrypto</groupId>
+        <artifactId>SM234</artifactId>
+	<scope>system</scope>
+	<version>1.0</version>
+	<systemPath>/root/workspace/keycloud/lib/JCrypto-1.0-SNAPSHOT.jar</systemPath>
+    </dependency>
   </dependencies>
 </project>
