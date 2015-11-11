@@ -15,93 +15,35 @@
   </properties>
   
   <build>
-    <finalName>${project.artifactId}-${project.version}</finalName>
-    <sourceDirectory>${basedir}/src/main/java</sourceDirectory>
-    <resources>  
-            <!-- 控制资源文件的拷贝 -->  
-            <resource>  
-                <directory>${basedir}/src/main/resources</directory> 
-		<includes>
-		  <include>**/*.properties</include>
-		  <include>**/*.keystore</include>
-		</includes> 
-                <!--targetPath>${project.build.directory}/resources</targetPath-->  
-            </resource>  
-    </resources>
+    <sourceDirectory>src/main/java</sourceDirectory>
     <plugins>
-      <plugin>  
-          <groupId>org.apache.maven.plugins</groupId>  
-          <artifactId>maven-compiler-plugin</artifactId>  
-          <configuration>  
-              <defaultLibBundleDir>lib</defaultLibBundleDir>  
-              <source>1.6</source>  
-              <target>1.6</target>
-              <!-- 设置源文件编码方式 -->  
-              <encoding>UTF-8</encoding>  
-           </configuration>  
-      </plugin> 
-      
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
 	<artifactId>maven-jar-plugin</artifactId>
 	<configuration>
 	  <archive>
 	    <manifest>
-	    	<!-- 打包jar文件时，配置manifest文件，加入lib包的jar依赖 -->
-	    	<addClasspath>true</addClasspath>
-	    	<classpathPrefix>lib/</classpathPrefix>
-	    	<!-- 设置启动时的main方法 -->
 		<mainClass>com.nerbit.nobit.keyrepo.App</mainClass>
 	    </manifest>
 	  </archive>
 	</configuration>
       </plugin>
-      
-      <!-- 拷贝依赖的jar包到lib目录 --> 
       <plugin>
 	<groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-dependency-plugin</artifactId>
 	<executions>
 	  <execution>
 	    <id>copy</id>
-	    <phase>package</phase>
+	    <phase>install</phase>
 	    <goals>
 	      <goal>copy-dependencies</goal>
 	    </goals>
 	    <configuration>
-	      <outputDirectory>${project.build.directory}/lib</outputDirectory>
+	      <outputDirectory>${project.build.directory}</outputDirectory>
 	    </configuration>
 	  </execution>
 	</executions>
       </plugin>
-      
-      <!-- 解决资源文件的编码问题 -->  
-      <plugin>  
-          <groupId>org.apache.maven.plugins</groupId>  
-          <artifactId>maven-resources-plugin</artifactId>  
-          <version>2.6</version>
-          <configuration>  
-             <encoding>UTF-8</encoding>  
-          </configuration>  
-      </plugin> 
-      
-      <!-- 打包source文件为jar文件 -->  
-      <plugin>  
-          <artifactId>maven-source-plugin</artifactId>  
-          <version>2.1</version>  
-          <configuration>  
-              <attach>true</attach>  
-              <encoding>UTF-8</encoding>  
-          </configuration>  
-          <executions>  
-              <execution>  
-                 <phase>compile</phase>  
-                 <goals>  
-                     <goal>jar</goal>  
-                 </goals>  
-              </execution>  
-          </executions>  
-      </plugin>  
     </plugins>
   </build>  
 
