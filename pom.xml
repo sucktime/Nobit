@@ -17,7 +17,7 @@
   			<configuration>
     			<archive>
      			 <manifest>
-       	 			<mainClass>com.nerbit.nobit.keyrepo.App.Main</mainClass>
+       	 			<mainClass>com.nerbit.nobit.keyrepo.App</mainClass>
      			 </manifest>
     			</archive>
   			</configuration>
