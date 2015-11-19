@@ -10,4 +10,8 @@ public interface DataKeyRepository extends CrudRepository<DataKey, Long> {
 	public DataKey findOne(Long keyId);
 	
 	public DataKey save(DataKey dataKey);
+	
+	public boolean exists(Long id);
+	
+	public void delete(Long id);
 }
