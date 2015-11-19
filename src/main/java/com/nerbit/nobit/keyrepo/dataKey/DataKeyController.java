@@ -75,4 +75,37 @@ public class DataKeyController {
 		return dataKey;
 	}
 	
+	@RequestMapping(value="/data-key/delete-one",method=RequestMethod.GET)
+	public Object deleteDataKey(
+			@RequestParam(value="user_id")String userId,
+			@RequestParam(value="timestamp")String timestamp,
+			@RequestParam(value="key_id")Long keyId,
+			@RequestParam(value="signature")String signature){
+	
+		
+		/*
+		 * Future Work:
+		 * 将时间戳检查、验签两个操作单独写成一个工具类方法
+		 * CryptoUtils.chechTimestamp()
+		 * CryptoUtils.verifySignature()
+		 */
+		
+		User user = userRepository.findByUserId(userId);
+		if(user == null){
+			return new UserError(UserError.ERR_CODE_NO_SUCH_USER, UserError.ERR_DISP_NO_SUCH_USER);
+		}
+		
+		/*
+		 * verify the timestamp, signature
+		 */
+		
+		if(dataKeyRepository.exists(keyId)){
+			dataKeyRepository.delete(keyId);
+			return "{deleted:"+keyId+"}";
+		}
+		else {
+			return  new DataKeyError(DataKeyError.ERR_CODE_NO_SUCH_DATAKEY, DataKeyError.ERR_DISP_NO_SUCH_DATEKEY);
+		}
+	}
+	
 }
